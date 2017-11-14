@@ -1,0 +1,4 @@
+Lviv Moscow 10 2500
+Moscow Nizhniy Urengoy 17 5000
+Lviv Kiev 7 1500
+Kiev Berlin 13 2000
