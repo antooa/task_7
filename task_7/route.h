@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 using namespace std;
 class route
 {
@@ -24,14 +25,20 @@ public:
 		in >> r.initial >> r.last >> r.stops >> r.length;
 		return in;
 	}
-	friend ofstream& operator >> (ofstream& out, route& r)
+	friend ofstream& operator << (ofstream& out, route& r)
 	{
 		out << r.initial << " " << r.last << " " <<  r.stops << " " << r.length;
+		return out;
+	}
+	friend ostream& operator << (ostream& out, route& r)
+	{
+		out << r.initial << " " << r.last << " " << r.stops << " " << r.length << endl;
 		return out;
 	}
 	double mean_lenght();
 	string get_init();
 	double get_legth();
+	int get_stops();
 	~route();
 };
 
