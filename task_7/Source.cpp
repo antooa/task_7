@@ -16,18 +16,12 @@ T ask(string request)
 void show_tight(vector<route> &vec)
 {
 	double limit = ask<double>("Enter the max density of the routes");
-	vector<route> demo(vec.size());
-	copy_if(vec.begin(), vec.end(), demo.begin(),
-		[limit] (route &r)
+	cout << "Routes with density less than " << limit << " = " << count_if(vec.begin(), vec.end(),
+		[&limit] (route &r)
 	{
 		double mean = r.mean_lenght();
 		return mean < limit;
-	});
-
-	for (route &r : demo)
-	{
-		cout << r;
-	}
+	}) << endl;
 }
 
 bool length_comp(route &r1, route &r2)
@@ -42,6 +36,10 @@ int main()
 	while (!in.fail())
 	{
 		in >> pusher;
+		if (in.fail())
+		{
+			break;
+		}
 		traffic.push_back(pusher);
 
 	}
@@ -52,7 +50,7 @@ int main()
 	sort(traffic.begin(), traffic.end(), length_comp);
 	show_tight(traffic);
 	string X_stop = ask<string>("Enter the name of the initial station");
-	vector<route> routes;
+	vector<route> routes(traffic.size());
 	remove_copy_if(traffic.begin(), traffic.end(), routes.begin(),
 		[&X_stop](route& rt)
 	{
@@ -60,9 +58,26 @@ int main()
 	});
 	for (route &r : routes)
 	{
+		if (r.get_legth() == 0)
+		{
+			break;
+		}
 		cout << r;
 	}
-
+	cout << "Routes with max num of stops:" << endl;
+	route max = *(max_element(traffic.begin(), traffic.end(),
+		[](route &a, route &b)
+	{
+		return a.get_stops() < b.get_stops();
+	}));
+	for_each(traffic.begin(), traffic.end(), 
+		[&max] (route &r)
+	{
+		if (r.get_stops() == max.get_stops())
+		{
+			cout << r;
+		}
+	});
 
 	_getch();
 	return 0;

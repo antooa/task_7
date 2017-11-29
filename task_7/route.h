@@ -35,6 +35,13 @@ public:
 		out << r.initial << " " << r.last << " " << r.stops << " " << r.length << endl;
 		return out;
 	}
+	/*bool operator == (route &right)
+	{
+		return initial == right.initial;
+			//&& last == right.last
+			//&&// stops == right.stops
+			//&& length == right.length
+	}*/
 	double mean_lenght();
 	string get_init();
 	double get_legth();
